@@ -90,4 +90,26 @@ public class ActivityHandler implements Route {
 
     return sentBoredApiResponse.body();
   }
+
+  private loadCSV{
+    //load csv file if one is located at specific path
+    //requests must have filepath query parameter
+    //response must include filepath field
+    //share status of file loading with search and view
+  }
+
+  private viewCSV{
+    //sends back entire CSV file's conentnts as a json 2d array
+  }
+
+  private searchCSV{
+    //send back rows mathcing the given search criteria
+    //requests muts allow all search paramters needed to implement CSV
+  }
+
+  private broadband{
+    //sends back broadband data from ACS
+    //requests must have state & county query parameter
+    //response must include correspondng fields for all paramters in request recieved
+  }
 }
