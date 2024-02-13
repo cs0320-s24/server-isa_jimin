@@ -1,7 +1,9 @@
-package edu.brown.cs.student.main.activity;
+package edu.brown.cs.student.main.server.backend;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import edu.brown.cs.student.main.server.backend.Census;
+
 import java.io.IOException;
 
 /**
@@ -16,15 +18,15 @@ public class ActivityAPIUtilities {
    * @param jsonActivity
    * @return
    */
-  public static Activity deserializeActivity(String jsonActivity) {
+  public static Census deserializeActivity(String jsonActivity) {
     try {
       // Initializes Moshi
       Moshi moshi = new Moshi.Builder().build();
 
       // Initializes an adapter to an Activity class then uses it to parse the JSON.
-      JsonAdapter<Activity> adapter = moshi.adapter(Activity.class);
+      JsonAdapter<Census> adapter = moshi.adapter(Census.class);
 
-      Activity activity = adapter.fromJson(jsonActivity);
+      Census activity = adapter.fromJson(jsonActivity);
 
       return activity;
     }
@@ -33,7 +35,7 @@ public class ActivityAPIUtilities {
     // the error instead of pushing it up.
     catch (IOException e) {
       e.printStackTrace();
-      return new Activity();
+      return new Census();
     }
   }
 }

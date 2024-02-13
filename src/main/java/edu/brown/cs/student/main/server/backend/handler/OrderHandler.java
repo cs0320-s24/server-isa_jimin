@@ -1,8 +1,8 @@
-package edu.brown.cs.student.main.server;
+package edu.brown.cs.student.main.server.backend.handler;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
-import edu.brown.cs.student.main.soup.Soup;
+import edu.brown.cs.student.main.server.backend.Soup;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

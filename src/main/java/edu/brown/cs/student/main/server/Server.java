@@ -2,8 +2,11 @@ package edu.brown.cs.student.main.server;
 
 import static spark.Spark.after;
 
-import edu.brown.cs.student.main.soup.Soup;
-import edu.brown.cs.student.main.soup.SoupAPIUtilities;
+import edu.brown.cs.student.main.server.backend.Soup;
+import edu.brown.cs.student.main.server.backend.SoupAPIUtilities;
+import edu.brown.cs.student.main.server.backend.handler.ActivityHandler;
+import edu.brown.cs.student.main.server.backend.handler.OrderHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 import spark.Spark;

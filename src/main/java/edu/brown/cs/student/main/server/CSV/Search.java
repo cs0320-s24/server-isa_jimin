@@ -1,4 +1,3 @@
-package edu.brown.cs.student.main;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,7 +9,7 @@ public class Search <T>{
      */
     private HashMap<String, HashSet<Integer>> lineNumbers;
     private String keyword;
-     CSVParser<T> parser;
+    CSVParser<T> parser;
     BufferedReader reader;
 
     public Search(CSVParser<T> parser, BufferedReader reader){

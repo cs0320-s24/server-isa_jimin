@@ -3,9 +3,9 @@ package edu.brown.cs.student.main;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.squareup.moshi.Moshi;
-import edu.brown.cs.student.main.server.ActivityHandler;
-import edu.brown.cs.student.main.server.OrderHandler;
-import edu.brown.cs.student.main.soup.Soup;
+import edu.brown.cs.student.main.server.backend.handler.ActivityHandler;
+import edu.brown.cs.student.main.server.backend.handler.OrderHandler;
+import edu.brown.cs.student.main.server.backend.Soup;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;

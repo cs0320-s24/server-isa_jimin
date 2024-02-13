@@ -1,7 +1,7 @@
-package edu.brown.cs.student.main.server;
+package edu.brown.cs.student.main.server.backend.handler;
 
-import edu.brown.cs.student.main.activity.Activity;
-import edu.brown.cs.student.main.activity.ActivityAPIUtilities;
+import edu.brown.cs.student.main.server.backend.Census;
+import edu.brown.cs.student.main.server.backend.ActivityAPIUtilities;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -51,7 +51,7 @@ public class ActivityHandler implements Route {
       // Sends a request to the API and receives JSON back
       String activityJson = this.sendRequest(Integer.parseInt(participants));
       // Deserializes JSON into an Activity
-      Activity activity = ActivityAPIUtilities.deserializeActivity(activityJson);
+      Census activity = ActivityAPIUtilities.deserializeActivity(activityJson);
       // Adds results to the responseMap
       responseMap.put("result", "success");
       responseMap.put("activity", activity);
