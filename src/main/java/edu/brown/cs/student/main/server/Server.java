@@ -4,8 +4,7 @@ import static spark.Spark.after;
 
 import edu.brown.cs.student.main.server.backend.Soup;
 import edu.brown.cs.student.main.server.backend.SoupAPIUtilities;
-import edu.brown.cs.student.main.server.backend.handler.ActivityHandler;
-import edu.brown.cs.student.main.server.backend.handler.OrderHandler;
+import edu.brown.cs.student.main.server.backend.handler.CensusHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,6 @@ import spark.Spark;
  * all had the same shared state.
  */
 public class Server {
-  // TODO 0: Read through this class and determine the shape of this project...
   // What are the endpoints that we can access... What happens if you go to them?
   public static void main(String[] args) {
     int port = 3232;
@@ -63,8 +61,7 @@ public class Server {
     }
 
     // Setting up the handler for the GET /order and /activity endpoints
-    Spark.get("order", new OrderHandler(menu));
-    Spark.get("activity", new ActivityHandler());
+    Spark.get("censushandler", new CensusHandler(menu));
     Spark.init();
     Spark.awaitInitialization();
 
