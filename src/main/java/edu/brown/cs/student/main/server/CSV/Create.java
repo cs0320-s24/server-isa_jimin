@@ -1,10 +1,11 @@
 package edu.brown.cs.student.main.server.CSV;
 
-import edu.brown.cs.student.main.CreateObject;
+import edu.brown.cs.student.main.FactoryFailureException;
+
 
 import java.util.List;
 
-public class Create implements CreatorFromRow<CreateObject>{
+public class Create implements CreatorFromRow<CreateObject> {
     /**
      * This class implements the CreatorFromRow interface.
      */
@@ -14,7 +15,6 @@ public class Create implements CreatorFromRow<CreateObject>{
      */
     @Override
     public CreateObject create(List<String> row) throws FactoryFailureException {
-        CreateObject returnObject = new CreateObject();
-        return returnObject;
+        return new CreateObject();
     }
 }
