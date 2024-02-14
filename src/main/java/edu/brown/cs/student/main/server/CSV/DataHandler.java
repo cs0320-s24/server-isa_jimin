@@ -62,7 +62,7 @@ public class DataHandler {
 
     }
 
-    public List<List<String>> searchNoHeader(String query) {
-        
+    public List<List<String>> searchNoHeader(String query, boolean hasHeaders) {
+
     }
 }

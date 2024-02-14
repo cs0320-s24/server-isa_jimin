@@ -66,7 +66,7 @@ public class SearchCsv implements Route {
         } else if (hasHeaders.equalsIgnoreCase("no")) {
             // http://localhost:3232/SearchCSV?query= does not have headers
             try {
-                List<List<String>> result = this.dataHandler.searchNoHeader(query);
+                List<List<String>> result = this.dataHandler.searchNoHeader(query, false);
                 return new SearchSuccess(result, query, hasHeaders, null, null, null).serialize();
 
             } catch (Exception e) {
