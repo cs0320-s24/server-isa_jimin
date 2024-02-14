@@ -29,6 +29,7 @@ public class Server {
   public static void main(String[] args) {
     Spark.port(port);
 
+
     DataHandler dataHander = new DataHandler("/Users/jiminryu/Desktop/cs0320/server-isa_jimin/src/main/java/edu/brown/cs/student/main/server/backend/data/RICensus.csv");
 
     // Allows clients to make requests to server
