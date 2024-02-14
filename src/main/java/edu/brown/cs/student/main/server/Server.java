@@ -24,9 +24,9 @@ import spark.Spark;
  * all had the same shared state.
  */
 public class Server {
-  // What are the endpoints that we can access... What happens if you go to them?
+
+  final static int port = 3232;
   public static void main(String[] args) {
-    int port = 3232;
     Spark.port(port);
 
     DataHandler dataHander = new DataHandler();

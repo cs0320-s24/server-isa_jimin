@@ -2,14 +2,17 @@ package edu.brown.cs.student.main.server.CSV;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import com.squareup.moshi.Types;
+import edu.brown.cs.student.main.server.CSV.LoadCsv.LoadInvalidResponse;
+import edu.brown.cs.student.main.server.CSV.LoadCsv.LoadValidResponse;
 import edu.brown.cs.student.main.server.backend.handler.OrderHandler;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.Map;
 
 public class LoadCsv implements Route {
@@ -29,7 +32,6 @@ public class LoadCsv implements Route {
         }catch(IOException e){
             return LoadInvalidResponse("failure", ).serialize();
         }
-
     }
 
     public record LoadValidResponse(String response, Map<String, Object> responseMap) {
@@ -45,13 +47,14 @@ public class LoadCsv implements Route {
             } catch (Exception e) {
                 //should return a type error, added with e.getMessage()
             }
+            return null;
         }
     }
 
     /** Response object to send if someone requested soup from an empty Menu */
-    public record LoadInvalidResponse(String response_type, ) {
+    public record LoadInvalidResponse(String response_type, String filePath) {
         public LoadInvalidResponse(String response, Map<String, Object> responseMap) {
-            this("error");
+            this();
         }
 
         /**
@@ -59,7 +62,7 @@ public class LoadCsv implements Route {
          */
         String serialize() {
             Moshi moshi = new Moshi.Builder().build();
-            return moshi.adapter(OrderHandler.SoupNoRecipesFailureResponse.class).toJson(this);
+            Type mapStringObject = Types.newParameterizedType(Map.class, String.class, Object.class);
         }
     }
 }

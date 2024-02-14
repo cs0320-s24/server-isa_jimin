@@ -1,6 +1,4 @@
-package edu.brown.cs.student.main.server.CSV;
-
-import edu.brown.cs.student.main.FactoryFailureException;
+package edu.brown.cs.student.main.server.backend.parser;
 
 import java.io.*;
 import java.util.*;
@@ -15,9 +13,8 @@ public class CSVParser <T> {
     CreatorFromRow<T> c;
     static final Pattern regexSplitCSVRow = Pattern.compile(",(?=([^\\\"]*\\\"[^\\\"]*\\\")*(?![^\\\"]*\\\"))");
 
-  public CSVParser(Reader reader, CreatorFromRow<T> c, boolean headers) throws IOException {
+  public CSVParser(Reader reader, CreatorFromRow<T> c) throws IOException {
       this.reader = new BufferedReader(reader);
-      this.headers = headers;
       this.c = c;
   } //take in Reader instead of FileReader
     /**
@@ -27,9 +24,6 @@ public class CSVParser <T> {
       List<T> returnList = new ArrayList<>();
       String line = this.reader.readLine();
 
-      if (this.headers) {
-          this.reader.readLine();
-      }
       while (line != null) {
           List<String> row = Arrays.asList(regexSplitCSVRow.split(line));
           T object = c.create(row);

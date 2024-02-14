@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.server.CSV;
+package edu.brown.cs.student.main.server.backend.parser;
 
 import java.util.List;
 
@@ -9,5 +9,5 @@ import java.util.List;
  * <p>Your parser class constructor should take a second parameter of this generic interface type.
  */
 public interface CreatorFromRow<T> {
-  T create(List<String> row) throws edu.brown.cs.student.main.FactoryFailureException;
+  T create(List<String> row) throws FactoryFailureException;
 }

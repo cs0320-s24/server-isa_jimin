@@ -10,10 +10,15 @@ public class SearchCsv implements Route {
     public SearchCsv(DataHandler dataHandler){
         this.dataHandler = dataHandler;
     }
+
     @Override
     public Object handle(Request request, Response response) throws Exception {
+        if(this.dataHandler.getFilePath() == null || this.dataHandler.getFilePath().isEmpty()){
+            System.err.println("No filepath is given");
+            return new ViewCsv.ViewFailure("failure").serialize();
+        }
+
         String keyword = request.queryParams("");
-        //need to search column index
 
         return null;
     }

@@ -1,6 +1,6 @@
-package edu.brown.cs.student.main.server.CSV;
+package edu.brown.cs.student.main.server.backend.parser;
 
-import edu.brown.cs.student.main.server.CSV.CSVParser;
+import edu.brown.cs.student.main.server.backend.parser.CSVParser;
 
 
 import java.io.BufferedReader;
