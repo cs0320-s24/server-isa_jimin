@@ -58,8 +58,10 @@ public class DataHandler {
     }
 
     public List<List<String>> searchColIndex(String query, Integer index) {
+
     }
 
     public List<List<String>> searchNoHeader(String query) {
+        
     }
 }
