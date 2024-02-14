@@ -13,7 +13,7 @@ public class CSVParser <T> {
     CreatorFromRow<T> c;
     static final Pattern regexSplitCSVRow = Pattern.compile(",(?=([^\\\"]*\\\"[^\\\"]*\\\")*(?![^\\\"]*\\\"))");
 
-  public CSVParser(Reader reader, CreatorFromRow<T> c) throws IOException {
+  public CSVParser(Reader reader, CreatorFromRow<T> c, ) throws IOException {
       this.reader = new BufferedReader(reader);
       this.c = c;
   } //take in Reader instead of FileReader
