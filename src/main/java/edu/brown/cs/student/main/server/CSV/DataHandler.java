@@ -53,4 +53,12 @@ public class DataHandler {
        }
     }
 
+    public List<List<String>> searchColName(String query, String name) {
+    }
+
+    public List<List<String>> searchColIndex(String query, Integer index) {
+    }
+
+    public List<List<String>> searchNoHeader(String query) {
+    }
 }
