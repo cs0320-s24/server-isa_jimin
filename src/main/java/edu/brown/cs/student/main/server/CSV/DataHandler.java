@@ -44,7 +44,8 @@ public class DataHandler {
      */
     public List parseCsv(String filepath) throws IOException {
        try(FileReader fileReader = new FileReader(filepath)){
-            CSVParser parser = new CSVParser(fileReader, new Create());
+           //Boolean headers = true;
+           CSVParser parser = new CSVParser(fileReader, new Create(), headers);
            System.out.println("File Parsed");
             return parser.parse();
        } catch (FactoryFailureException e) {
