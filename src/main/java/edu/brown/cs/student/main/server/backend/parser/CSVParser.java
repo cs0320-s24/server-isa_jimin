@@ -8,14 +8,14 @@ public class CSVParser <T> {
     /**
      * This is the CSV Parser class.
      */
-    BufferedReader reader;
+    public BufferedReader reader;
     Boolean headers;
     CreatorFromRow<T> c;
     static final Pattern regexSplitCSVRow = Pattern.compile(",(?=([^\\\"]*\\\"[^\\\"]*\\\")*(?![^\\\"]*\\\"))");
 
-  public CSVParser(Reader reader, CreatorFromRow<T> c, boolean headers) throws IOException {
+  public CSVParser(Reader reader, CreatorFromRow<T> c) throws IOException {
       this.reader = new BufferedReader(reader);
-      this.headers = headers;
+     // this.headers = headers;
       this.c = c;
   } //take in Reader instead of FileReader
     /**
@@ -25,9 +25,9 @@ public class CSVParser <T> {
       List<T> returnList = new ArrayList<>();
       String line = this.reader.readLine();
 
-      if(this.headers){
-          this.reader.readLine();
-      }
+//      if(this.headers){
+//          this.reader.readLine();
+//      }
 
       while (line != null) {
           List<String> row = Arrays.asList(regexSplitCSVRow.split(line));

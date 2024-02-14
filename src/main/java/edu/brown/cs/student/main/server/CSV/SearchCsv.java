@@ -14,8 +14,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.eclipse.jetty.webapp.MetaDataComplete.True;
+
 public class SearchCsv implements Route {
 
+    Boolean headers;
     DataHandler dataHandler;
     public SearchCsv(DataHandler dataHandler){
         this.dataHandler = dataHandler;
@@ -46,7 +49,7 @@ public class SearchCsv implements Route {
                 String name = request.queryParams("name");
                 // http://localhost:3232/SearchCSV?query= has headers with index name and town
                 try {
-                    List<List<String>> searchResult = this.dataHandler.searchColName(query, name);
+                    List<List<String>> searchResult = this.dataHandler.searchColName(query, name, headers);
                     return new SearchSuccess(searchResult, query, hasHeaders, nameIndex, name, null)
                             .serialize();
                 } catch (Exception e) {
@@ -55,7 +58,7 @@ public class SearchCsv implements Route {
             } else if (nameIndex.equalsIgnoreCase("index")) {
                 Integer index = Integer.parseInt(request.queryParams("index"));
                 try {
-                    List<List<String>> searchResult = this.dataHandler.searchColIndex(query, index);
+                    List<List<String>> searchResult = this.dataHandler.searchColIndex(query, index, headers);
                     return new SearchSuccess(searchResult, query, hasHeaders, nameIndex, null, index)
                             .serialize();
 
