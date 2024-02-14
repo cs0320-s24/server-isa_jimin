@@ -16,8 +16,11 @@ public class LoadCsv implements Route {
     }
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        String filepath = request.queryParams("");
-        try(load file in maybe my making new reader){
+        String filePath = request.queryParams("");
+
+        FileReader fileReader = new FileReader(filePath);
+        //BufferedReader reader = new BufferedReader(fileReader);
+        try(fileReader){
             return "File loaded successfully";
         }catch(IOException e){
             return "Error loading file";
