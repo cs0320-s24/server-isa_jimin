@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import edu.brown.cs.student.main.server.CSV.CensusData;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -53,7 +54,7 @@ public class CensusHandler implements Route {
       // Sends a request to the API and receives JSON back
       String activityJson = this.sendRequest(Integer.parseInt(participants));
       // Deserializes JSON into an Activity
-      List<Census> activity = CensusAPIUtilities.deserializeData(activityJson);
+      List<CensusData> activity = CensusAPIUtilities.deserializeData(activityJson);
       // Adds results to the responseMap
       responseMap.put("result", "success");
       responseMap.put("activity", activity);
@@ -73,7 +74,7 @@ public class CensusHandler implements Route {
 
     URL requestURL = new URL("https", "api.census.gov",
             "/data/2010/dec/sf?get=NAME&for=state:*");
-    HttpURLConnection clientConnection = connect(requestURL);
+    //HttpURLConnection clientConnection = connect(requestURL);
     System.out.println("connected to client");
 
     HttpRequest buildBoredApiRequest =

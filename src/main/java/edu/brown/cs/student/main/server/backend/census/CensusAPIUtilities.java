@@ -4,6 +4,7 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.JsonDataException;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import edu.brown.cs.student.main.server.CSV.CensusData;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -20,16 +21,16 @@ public class CensusAPIUtilities {
    * @return
    * @throws IOException
    */
-  public static List<Census> deserializeData(String jsonList) throws IOException {
-    List<Census> censusList = new ArrayList<>();
+  public static List<CensusData> deserializeData(String jsonList) throws IOException {
+    List<CensusData> censusList = new ArrayList<>();
     try {
       // Initializes Moshi
       Moshi moshi = new Moshi.Builder().build();
 
-      Type listType = Types.newParameterizedType(List.class, Census.class);
-      JsonAdapter<List<Census>> adapter = moshi.adapter(listType);
+      Type listType = Types.newParameterizedType(List.class, CensusData.class);
+      JsonAdapter<List<CensusData>> adapter = moshi.adapter(listType);
 
-      List<Census> deserializedList = adapter.fromJson(jsonList);
+      List<CensusData> deserializedList = adapter.fromJson(jsonList);
       return deserializedList;
     }
     // Returns an empty activity... Probably not the best handling of this error case...
