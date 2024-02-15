@@ -42,7 +42,7 @@ public class Proxy implements Route{
     @Override
     public Object handle(Request request, Response response) throws Exception {
         String cacheKey = generateCacheKey(request);
-        return this.cache.getUnchecked(cacheKey);
+        return this.cache.get(cacheKey);
     }
 
     private String generateCacheKey(Request request){
