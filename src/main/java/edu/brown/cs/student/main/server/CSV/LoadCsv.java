@@ -3,8 +3,6 @@ package edu.brown.cs.student.main.server.CSV;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
-import edu.brown.cs.student.main.server.CSV.LoadCsv.LoadCSVFailureResponse;
-import edu.brown.cs.student.main.server.CSV.LoadCsv.LoadCSVSuccessResponse;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -19,10 +17,10 @@ import java.util.Map;
 
 public class LoadCsv implements Route {
 
-    private DataHandler dataHandler;
+    private CensusData censusData;
     private String filePath;
-    public LoadCsv(DataHandler dataHandler){
-        this.dataHandler = dataHandler;
+    public LoadCsv(CensusData censusData){
+        this.censusData = censusData;
     }
     @Override
     public Object handle(Request request, Response response) throws Exception {
@@ -40,9 +38,9 @@ public class LoadCsv implements Route {
         FileReader fileReader = new FileReader(csvPath.toString());
         //BufferedReader reader = new BufferedReader(fileReader);
         try(fileReader){
-            return LoadCSVSuccessResponse("success", ).serialize();
+            return new LoadCSVSuccessResponse("success", filePath).serialize();
         }catch(IOException e){
-            return LoadCSVFailureResponse("failure", ).serialize();
+            return new LoadCSVFailureResponse(filePath).serialize();
         }
     }
 

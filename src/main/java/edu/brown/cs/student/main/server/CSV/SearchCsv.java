@@ -7,8 +7,6 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-import javax.naming.directory.InvalidSearchFilterException;
-import javax.naming.directory.SearchResult;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
@@ -16,14 +14,14 @@ import java.util.Map;
 
 public class SearchCsv implements Route {
 
-    DataHandler dataHandler;
-    public SearchCsv(DataHandler dataHandler){
-        this.dataHandler = dataHandler;
+    CensusData censusData;
+    public SearchCsv(CensusData censusData){
+        this.censusData = censusData;
     }
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        if(this.dataHandler.getFilePath() == null || this.dataHandler.getFilePath().isEmpty()){
+        if(this.censusData.getFilePath() == null || this.censusData.getFilePath().isEmpty()){
             System.err.println("No filepath is given");
             return new ViewCsv.ViewFailure("failure").serialize();
         }
@@ -46,7 +44,7 @@ public class SearchCsv implements Route {
                 String name = request.queryParams("name");
                 // http://localhost:3232/SearchCSV?query= has headers with index name and town
                 try {
-                    List<List<String>> searchResult = this.dataHandler.searchColName(query, name);
+                    List<List<String>> searchResult = this.censusData.searchColName(query, name);
                     return new SearchSuccess(searchResult, query, hasHeaders, nameIndex, name, null)
                             .serialize();
                 } catch (Exception e) {
@@ -55,7 +53,7 @@ public class SearchCsv implements Route {
             } else if (nameIndex.equalsIgnoreCase("index")) {
                 Integer index = Integer.parseInt(request.queryParams("index"));
                 try {
-                    List<List<String>> searchResult = this.dataHandler.searchColIndex(query, index);
+                    List<List<String>> searchResult = this.censusData.searchColIndex(query, index);
                     return new SearchSuccess(searchResult, query, hasHeaders, nameIndex, null, index)
                             .serialize();
 
@@ -66,7 +64,7 @@ public class SearchCsv implements Route {
         } else if (hasHeaders.equalsIgnoreCase("no")) {
             // http://localhost:3232/SearchCSV?query= does not have headers
             try {
-                List<List<String>> result = this.dataHandler.searchNoHeader(query, false);
+                List<List<String>> result = this.censusData.searchNoHeader(query);
                 return new SearchSuccess(result, query, hasHeaders, null, null, null).serialize();
 
             } catch (Exception e) {

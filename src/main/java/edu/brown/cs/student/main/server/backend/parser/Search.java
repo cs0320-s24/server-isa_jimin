@@ -1,63 +1,147 @@
 package edu.brown.cs.student.main.server.backend.parser;
 
-import edu.brown.cs.student.main.server.backend.parser.CSVParser;
 
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.HashSet;
-public class Search <T>{
-    /**
-     * This is the search class.
-     */
-    private HashMap<String, HashSet<Integer>> lineNumbers;
-    private String keyword;
-    CSVParser<T> parser;
-    BufferedReader reader;
+import java.util.List;
+import java.util.NoSuchElementException;
 
-    public Search(CSVParser<T> parser, BufferedReader reader){
-        this.parser = parser;
-        this.reader = reader;
+/**
+ * Class responsible for searching the parsed Csv. Called upon in the main class to do different
+ * searches based on the number of, and actual arguments that are passed in.
+ */
+public class Search {
+
+    /**
+     * The instance variables that are used throughout the Search class. Needed because they are
+     * called upon in every search method of the class.
+     */
+    private CSVParser<List<String>> parser;
+
+    private String target;
+    private List<List<String>> parsedList;
+
+    /**
+     * Constructor for the Search class. Creates an instance of search.
+     *
+     * @param inputParser - parser that is used to parse the search file into an ArrayList of type
+     *     List of Strings.
+     * @param target - the string that is being searched for, what each search algorithm returns arrow
+     *     for if it is found in its specified location.
+     */
+    public Search(CSVParser<List<String>> inputParser, String target) throws FactoryFailureException, IOException {
+        this.parser = inputParser;
+        this.target = target;
+        this.parsedList = this.parser.parse();
+
     }
+
     /**
-     * This method takes in a keyword that the user inputs and goes through the file to return all the lines
-     * the keyword appears.
+     * Method that searches through the whole file for the target. Checking every column in every row.
+     *
+     * @return a list of all the rows printed so that it can be unit tested.
      */
-        public void search(String keyword){
-        this.keyword = keyword;
-        try {
-            this.lineNumbers = new HashMap<String, HashSet<Integer>>();
-            String line = this.reader.readLine();
-            int counter = 0;
+    public ArrayList<List<String>> basicSearch() {
 
-            while ((line != null)) {
-                counter++;
-                String[] word1 = line.split(" ");
+        ArrayList<List<String>> toReturn = new ArrayList<>();
+        HashSet<List<String>> checker = new HashSet<>();
 
-                for (String word : word1) {
-                    if (!this.lineNumbers.containsKey(word)) {
-                        HashSet<Integer> value = new HashSet<>();
-                        value.add(counter);
-                        this.lineNumbers.put(word, value);
-                    } else {
-                        HashSet<Integer> newValue = this.lineNumbers.get(word);
-                        newValue.add(counter);
-                        this.lineNumbers.put(word, newValue);
+        boolean found = false;
+        for (int i = 0; i < this.parsedList.size(); i++) {
+            for (int j = 0; j < this.parsedList.get(i).size(); j++) {
+
+                String current = this.parsedList.get(i).get(j);
+
+                // if the target that is being searched for is found, print the row.
+                if (this.target.equals(current)) {
+                    found = true;
+                    if (!checker.contains(this.parsedList.get(i))) {
+                        toReturn.add(this.parsedList.get(i));
+                        checker.add(this.parsedList.get(i));
                     }
                 }
-                if(line.contains(keyword)){
-                    System.out.println("Result for " + keyword + " : " + lineNumbers);
-                }
-                line = this.reader.readLine();
             }
-            this.parser.reader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File Not Found");
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
         }
+//    if (!found) {
+//      System.out.println("Target not found in file");
+//    }
+        return toReturn;
+    }
+
+    /**
+     * Method that searches for the target in a specified col from the file.
+     *
+     * @param colAsStr - the column that will be searched.
+     * @return - a list of all the rows printed to help with unit testing.
+     */
+    public ArrayList<List<String>> colSearch(String colAsStr, Integer colIndex) {
+        // crates needed variables
+        ArrayList<List<String>> toReturn = new ArrayList<>();
+        boolean found = false;
+        int col = -1;
+
+        // convert inputted col string to an int and then loop through rows
+        if(colIndex == null){
+            col = Integer.valueOf(colAsStr);
+        }else if (colAsStr == null){
+            col = colIndex;
+        }
+
+
+        // cant search cols that don't exist
+        if (this.parsedList.size() == 0 || col > this.parsedList.get(0).size() - 1 || col < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        // begin search
+        for (int i = 0; i < this.parsedList.size(); i++) {
+
+            // checks specific column for index
+            if (this.target.equals(this.parsedList.get(i).get(col))) {
+                found = true;
+                toReturn.add(this.parsedList.get(i));
+            }
+        }
+        // case where target isn't found in the column
+//    if (!found) {
+//      System.out.println("Target not found in this col");
+//    }
+        return toReturn;
+    }
+
+    /**
+     * Method that searches for the target based on a specified column. Column is specified through
+     * the name of one of the header columns.
+     *
+     * @param headerName - the name of the header column that will be searched.
+     * @return - a list of all the rows in the header column containing the target, allowing for
+     *     testing of the method.
+     */
+    public ArrayList<List<String>> headerSearch(String headerName) throws IOException {
+        // creates needed variables
+        boolean found = false;
+        ArrayList<List<String>> toReturn = new ArrayList<>();
+        List<String> header = this.parser.getHeaderList();
+        // returns index and if not in it returns -1
+        int index = header.indexOf(headerName);
+
+        if (index == -1) {
+            throw new NoSuchElementException();
+        }
+
+        // loop through all rows
+        for (int i = 0; i < this.parsedList.size(); i++) {
+            // checks only specific colum the header corresponds to
+            if (this.target.equals(this.parsedList.get(i).get(index))) {
+                found = true;
+                toReturn.add(this.parsedList.get(i));
+            }
+        }
+        // case where target isn't found in the column
+//    if (!found) {
+//      System.out.println("Target not found in column with this name");
+//    }
+        return toReturn;
     }
 }
-

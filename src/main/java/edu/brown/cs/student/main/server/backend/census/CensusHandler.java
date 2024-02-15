@@ -1,7 +1,5 @@
-package edu.brown.cs.student.main.server.backend.handler;
+package edu.brown.cs.student.main.server.backend.census;
 
-import edu.brown.cs.student.main.server.backend.Census;
-import edu.brown.cs.student.main.server.backend.ActivityAPIUtilities;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -11,8 +9,10 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -23,7 +23,6 @@ import static spark.Spark.connect;
  * This class is used to illustrate how to build and send a GET request then prints the response. It
  * will also demonstrate a simple Moshi deserialization from online data.
  */
-// See Documentation here: https://www.boredapi.com/documentation
 public class CensusHandler implements Route {
   /**
    * This handle method needs to be filled by any class implementing Route. When the path set in
@@ -54,7 +53,7 @@ public class CensusHandler implements Route {
       // Sends a request to the API and receives JSON back
       String activityJson = this.sendRequest(Integer.parseInt(participants));
       // Deserializes JSON into an Activity
-      Census activity = ActivityAPIUtilities.deserializeActivity(activityJson);
+      List<Census> activity = CensusAPIUtilities.deserializeData(activityJson);
       // Adds results to the responseMap
       responseMap.put("result", "success");
       responseMap.put("activity", activity);
@@ -75,10 +74,8 @@ public class CensusHandler implements Route {
     URL requestURL = new URL("https", "api.census.gov",
             "/data/2010/dec/sf?get=NAME&for=state:*");
     HttpURLConnection clientConnection = connect(requestURL);
+    System.out.println("connected to client");
 
-    // Build a request to this BoredAPI. Try out this link in your browser, what do you see?
-    // TODO 1: Looking at the documentation, how can we add to the URI to query based
-    // on participant number?
     HttpRequest buildBoredApiRequest =
             HttpRequest.newBuilder()
                     .uri(new URI("http://www.boredapi.com/api/activity?participants=" + participants))

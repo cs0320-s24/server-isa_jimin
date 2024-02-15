@@ -14,16 +14,16 @@ import java.util.Map;
 
 public class ViewCsv implements Route {
 
-    private DataHandler dataHandler;
-    public ViewCsv(DataHandler dataHandler){
-        this.dataHandler = dataHandler;
+    private CensusData censusData;
+    public ViewCsv(CensusData censusData){
+        this.censusData = censusData;
     }
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        if (this.dataHandler.getFilePath() == null || this.dataHandler.getFilePath().isEmpty()) {
+        if (this.censusData.getFilePath() == null || this.censusData.getFilePath().isEmpty()) {
             return new ViewFailure("failure").serialize();
         }
-        List<List<String>> csvData = this.dataHandler.parseCsv(this.dataHandler.getFilePath());
+        List<List<String>> csvData = this.censusData.parseCsv(this.censusData.getFilePath());
 
         System.out.println(csvData);
         return new ViewSuccess(csvData).serialize();
