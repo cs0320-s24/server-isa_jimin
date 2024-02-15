@@ -12,11 +12,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.eclipse.jetty.webapp.MetaDataComplete.True;
+
 public class SearchCsv implements Route {
 
+<<<<<<< HEAD
     CensusData censusData;
     public SearchCsv(CensusData censusData){
         this.censusData = censusData;
+=======
+    Boolean headers;
+    DataHandler dataHandler;
+    public SearchCsv(DataHandler dataHandler){
+        this.dataHandler = dataHandler;
+>>>>>>> 58ec38c6160a991c0e5cdf59dcc0ba703bf3ebd9
     }
 
     @Override
@@ -44,7 +53,11 @@ public class SearchCsv implements Route {
                 String name = request.queryParams("name");
                 // http://localhost:3232/SearchCSV?query= has headers with index name and town
                 try {
+<<<<<<< HEAD
                     List<List<String>> searchResult = this.censusData.searchColName(query, name);
+=======
+                    List<List<String>> searchResult = this.dataHandler.searchColName(query, name, headers);
+>>>>>>> 58ec38c6160a991c0e5cdf59dcc0ba703bf3ebd9
                     return new SearchSuccess(searchResult, query, hasHeaders, nameIndex, name, null)
                             .serialize();
                 } catch (Exception e) {
@@ -53,7 +66,11 @@ public class SearchCsv implements Route {
             } else if (nameIndex.equalsIgnoreCase("index")) {
                 Integer index = Integer.parseInt(request.queryParams("index"));
                 try {
+<<<<<<< HEAD
                     List<List<String>> searchResult = this.censusData.searchColIndex(query, index);
+=======
+                    List<List<String>> searchResult = this.dataHandler.searchColIndex(query, index, headers);
+>>>>>>> 58ec38c6160a991c0e5cdf59dcc0ba703bf3ebd9
                     return new SearchSuccess(searchResult, query, hasHeaders, nameIndex, null, index)
                             .serialize();
 

@@ -29,6 +29,9 @@ public class CSVParser <T> {
           this.headerList = Arrays.asList(regexSplitCSVRow.split(line));
           this.reader.readLine();
       }
+//      if(this.headers){
+//          this.reader.readLine();
+//      }
 
       while (line != null) {
           List<String> row = Arrays.asList(regexSplitCSVRow.split(line));
@@ -37,6 +40,10 @@ public class CSVParser <T> {
           line = this.reader.readLine();
       }
       return returnList;
+  }
+
+  public Reader getReader(){
+      return this.reader;
   }
 
   public List<String> getHeaderList(){
