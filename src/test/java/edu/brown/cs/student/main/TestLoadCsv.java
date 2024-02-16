@@ -4,6 +4,8 @@ import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 import edu.brown.cs.student.main.server.CSV.LoadCsv;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +19,7 @@ public class TestLoadCsv {
         LoadCsv loadCsv = new LoadCsv(mockData);
     }
 
+    @Test
     public void testLoadCSVSuccessResponse(){
         LoadCsv.LoadCSVSuccessResponse success = new LoadCsv.LoadCSVSuccessResponse("success",
                 "file/path");
@@ -33,6 +36,7 @@ public class TestLoadCsv {
         assertEquals(expected1, sResponse);
     }
 
+    @Test
     public void testLoadCSVFailureResponse(){
         LoadCsv.LoadCSVFailureResponse failure = new LoadCsv.LoadCSVFailureResponse("error");
         String fResponse = failure.serialize();
