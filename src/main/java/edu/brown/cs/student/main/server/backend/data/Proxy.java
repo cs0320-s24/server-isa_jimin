@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.server.backend;
+package edu.brown.cs.student.main.server.backend.data;
 import com.google.common.cache.*;
 import edu.brown.cs.student.main.server.backend.data.BroadBand;
 import edu.brown.cs.student.main.server.backend.data.BroadBandAccessPercent;
