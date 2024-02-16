@@ -15,7 +15,10 @@ import spark.Response;
 import spark.Route;
 
 public class LoadCsv implements Route {
-
+  /**
+   * The LoadCsv class takes in CensusData and serializes a given file in order
+   * to perform parsing and searching.
+   */
   private CensusData censusData;
   private String filePath;
 
@@ -69,7 +72,6 @@ public class LoadCsv implements Route {
     }
   }
 
-  /** Response object to send if someone requested soup from an empty Menu */
   public record LoadCSVFailureResponse(String response_type) {
     public LoadCSVFailureResponse() {
       this("error");
