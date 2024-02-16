@@ -50,7 +50,7 @@ public class LoadCsv implements Route {
     /**
      * @return this response, serialized as Json
      */
-    String serialize() {
+    public String serialize() {
       Moshi moshi = new Moshi.Builder().build();
       Type mapStringObject = Types.newParameterizedType(Map.class, String.class, Object.class);
       JsonAdapter<Map<String, Object>> adapter = moshi.adapter(mapStringObject);
@@ -79,7 +79,7 @@ public class LoadCsv implements Route {
     /**
      * @return this response, serialized as Json
      */
-    String serialize() {
+    public String serialize() {
       Moshi moshi = new Moshi.Builder().build();
       return moshi.adapter(LoadCsv.LoadCSVFailureResponse.class).toJson(this);
     }
