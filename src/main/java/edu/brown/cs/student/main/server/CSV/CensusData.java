@@ -1,5 +1,6 @@
 package edu.brown.cs.student.main.server.CSV;
 
+import edu.brown.cs.student.main.server.backend.Exceptions.FactoryFailureException;
 import edu.brown.cs.student.main.server.backend.parser.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -12,8 +13,8 @@ public class CensusData {
   private BufferedReader fileReader;
 
   /**
-   * DataHandler constructor which takes in a filepath to be accessed by other classes that have an
-   * instance of DataHandler
+   * CensusData constructor which takes in a filepath to be accessed by other classes that have an
+   * instance of CensusData
    *
    * @param filePath filepath that the user inserts into the query
    */
