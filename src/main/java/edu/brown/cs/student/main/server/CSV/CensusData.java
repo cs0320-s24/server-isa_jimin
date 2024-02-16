@@ -77,7 +77,7 @@ public class CensusData {
     return search.basicSearch();
   }
 
-  // Don't know if this method is needed yet, or if it works depending on our csv parser
+
 
   /**
    * This is the Create class which we chose to nest in DataHandler so data could utilize a create
