@@ -1,5 +1,6 @@
 package edu.brown.cs.student.main.server.CSV;
 
+import edu.brown.cs.student.main.server.backend.Exceptions.FactoryFailureException;
 import edu.brown.cs.student.main.server.backend.parser.*;
 import java.io.BufferedReader;
 import java.io.FileReader;

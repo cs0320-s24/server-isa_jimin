@@ -1,5 +1,7 @@
 package edu.brown.cs.student.main.server.backend.parser;
 
+import edu.brown.cs.student.main.server.backend.Exceptions.FactoryFailureException;
+
 import java.io.*;
 import java.util.*;
 import java.util.regex.Pattern;
