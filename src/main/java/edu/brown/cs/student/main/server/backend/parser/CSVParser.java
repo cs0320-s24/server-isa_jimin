@@ -8,7 +8,6 @@ public class CSVParser<T> {
   /** This is the CSV Parser class. */
   private BufferedReader reader;
 
-  private Boolean headers;
   private CreatorFromRow<T> c;
   private List<String> headerList;
   static final Pattern regexSplitCSVRow =
@@ -30,6 +29,7 @@ public class CSVParser<T> {
       returnList.add(object);
       line = this.reader.readLine();
     }
+    System.out.println(returnList);
     return returnList;
   }
 
@@ -40,27 +40,5 @@ public class CSVParser<T> {
   public List<String> getHeaderList() {
     return this.headerList;
   }
-
-  //    private loadCSV{
-  //        //load csv file if one is located at specific path
-  //        //requests must have filepath query parameter
-  //        //response must include filepath field
-  //        //share status of file loading with search and view
-  //    }
-  //
-  //    private viewCSV{
-  //        //sends back entire CSV file's conentnts as a json 2d array
-  //    }
-  //
-  //    private searchCSV{
-  //        //send back rows mathcing the given search criteria
-  //        //requests muts allow all search paramters needed to implement CSV
-  //    }
-  //
-  //    private broadband{
-  //        //sends back broadband data from ACS
-  //        //requests must have state & county query parameter
-  //        //response must include correspondng fields for all paramters in request recieved
-  //    }
 
 }
