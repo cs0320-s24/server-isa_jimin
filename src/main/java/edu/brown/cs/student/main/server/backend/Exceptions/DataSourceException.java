@@ -13,10 +13,6 @@ public class DataSourceException extends Exception {
     this.cause = null;
   }
 
-  public DataSourceException(String message, Throwable cause) {
-    super(message); // Exception message
-    this.cause = cause;
-  }
 
   /**
    * Returns the Throwable provided (if any) as the root cause of this exception. We don't make a

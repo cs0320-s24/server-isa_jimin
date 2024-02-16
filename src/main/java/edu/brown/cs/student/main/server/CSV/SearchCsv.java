@@ -19,6 +19,13 @@ public class SearchCsv implements Route {
     this.censusData = censusData;
   }
 
+  /**
+   * Handle method, checks if the given filepath is valid, if there is a valid query, if there
+   * are headers, and runs the appropriate search methods given these user inputs
+   * @param request request from the user
+   * @param response from the server
+   * @return Search success or failure result
+   */
   @Override
   public Object handle(Request request, Response response) {
     System.out.println("HELLO");
@@ -127,8 +134,7 @@ public class SearchCsv implements Route {
   /**
    * Handles the failure response when a user inputs an incorrect input in the query
    *
-   * @param result
-   * @param query
+   * @param query given from the user
    */
   public record SearchFailure(String result, String query) {
 

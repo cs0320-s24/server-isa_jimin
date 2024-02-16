@@ -10,13 +10,8 @@ import edu.brown.cs.student.main.server.backend.data.BroadBandHandler;
 import spark.Spark;
 
 /**
- * Top-level class for this demo. Contains the main() method which starts Spark and runs the various
- * handlers (2).
- *
- * <p>Notice that the OrderHandler takes in a state (menu) that can be shared if we extended the
- * restaurant They need to share state (a menu). This would be a great opportunity to use dependency
- * injection. If we needed more endpoints, more functionality classes, etc. we could make sure they
- * all had the same shared state.
+ * Top-level class for this program. Contains the main() method which starts Spark and runs the various
+ * handlers
  */
 public class Server {
   static final int port = 4040;

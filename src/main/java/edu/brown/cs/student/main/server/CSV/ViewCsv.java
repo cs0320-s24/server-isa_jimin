@@ -15,10 +15,18 @@ public class ViewCsv implements Route {
 
   private CensusData censusData;
 
+  /**
+   * ViewCsv handler
+   * @param censusData given from the server
+   */
   public ViewCsv(CensusData censusData) {
     this.censusData = censusData;
   }
 
+  /**
+   * Handler for the ViewCsv, ensures that the filepath is valid
+   * @return the view success or failure response
+   */
   @Override
   public Object handle(Request request, Response response) throws Exception {
 
@@ -32,6 +40,9 @@ public class ViewCsv implements Route {
     return new ViewSuccess(csvData).serialize();
   }
 
+  /**
+   * View success response for a valid csv
+   */
   public record ViewSuccess(List<List<String>> csvData) {
 
     /**
@@ -55,6 +66,9 @@ public class ViewCsv implements Route {
     }
   }
 
+  /**
+   * View failure response for an invalid csv
+   */
   public record ViewFailure(String result) {
 
     /**
