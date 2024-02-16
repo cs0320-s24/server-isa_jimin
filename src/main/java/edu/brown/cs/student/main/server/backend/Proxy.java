@@ -1,21 +1,14 @@
 package edu.brown.cs.student.main.server.backend;
-
 import com.google.common.cache.*;
-
 import edu.brown.cs.student.main.server.backend.data.BroadBand;
 import edu.brown.cs.student.main.server.backend.data.BroadBandAccessPercent;
 import edu.brown.cs.student.main.server.backend.data.Location;
-
 import java.util.concurrent.TimeUnit;
 
-// need to decide when/how to remove stale (outdated or irrelevant)
-// entries from cache and allow developer to control how this is done
-
-// class could assist in managing cached data and
-// implementing configurable eviction policies
-
-// public class Proxy<Graph> extends Ticker{
-
+/**
+ * This class removes outdated entries from the BroadBand.
+ * Caching technique from Google Guava cache library.
+ */
 public class Proxy {
    private final BroadBand wrappedHandler;
    private final LoadingCache<Location, BroadBandAccessPercent> cache;
