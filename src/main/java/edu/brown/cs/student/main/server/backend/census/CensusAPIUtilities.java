@@ -5,14 +5,13 @@ import com.squareup.moshi.JsonDataException;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 import edu.brown.cs.student.main.server.CSV.CensusData;
-
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CensusAPIUtilities {
-  private CensusAPIUtilities(){}
+  private CensusAPIUtilities() {}
 
   /**
    * Creates a list of census data from a JSON.

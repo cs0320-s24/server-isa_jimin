@@ -2,8 +2,6 @@ package edu.brown.cs.student.main;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.brown.cs.student.main.server.backend.Soup;
-import edu.brown.cs.student.main.server.backend.SoupAPIUtilities;
 import java.io.IOException;
 import java.util.Arrays;
 import org.junit.jupiter.api.AfterEach;
