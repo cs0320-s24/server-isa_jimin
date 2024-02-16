@@ -58,17 +58,17 @@ public class CensusData {
     }
   }
 
-  //    public List<List<String>> searchColName(String query, String colName) throws IOException,
-  // FactoryFailureException {
-  //        Search search = new Search(this.parser, query);
-  //        return search.colSearch(colName, null);
-  //    }
-  //
-  //    public List<List<String>> searchColIndex(String query, Integer index) throws IOException,
-  // FactoryFailureException {
-  //        Search search = new Search(this.parser, query);
-  //        return search.colSearch(null, index);
-  //    }
+  public List<List<String>> searchColName(String query, String colName) throws IOException,
+   FactoryFailureException {
+          Search search = new Search(this.parser, query);
+          return search.colSearch(colName, null);
+      }
+
+      public List<List<String>> searchColIndex(String query, Integer index) throws IOException,
+   FactoryFailureException {
+          Search search = new Search(this.parser, query);
+          return search.colSearch(null, index);
+      }
 
   public List<List<String>> searchNoHeader(String query)
       throws IOException, FactoryFailureException {

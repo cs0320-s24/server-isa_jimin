@@ -36,7 +36,6 @@ public class LoadCsv implements Route {
     censusData.setFilePath(csvPath.toString());
 
     FileReader fileReader = new FileReader(csvPath.toString());
-    // BufferedReader reader = new BufferedReader(fileReader);
     try (fileReader) {
       System.out.println("success");
       return new LoadCSVSuccessResponse("success", filePath).serialize();

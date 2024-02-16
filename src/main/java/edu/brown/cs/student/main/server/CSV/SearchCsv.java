@@ -19,13 +19,6 @@ public class SearchCsv implements Route {
     this.censusData = censusData;
   }
 
-  Boolean headers;
-  DataHandler dataHandler;
-
-  public SearchCsv(DataHandler dataHandler) {
-    this.dataHandler = dataHandler;
-  }
-
   @Override
   public Object handle(Request request, Response response) throws Exception {
     if (this.censusData.getFilePath() == null || this.censusData.getFilePath().isEmpty()) {
@@ -38,7 +31,7 @@ public class SearchCsv implements Route {
 
     if (query == null) {
       System.err.println("No query to search");
-      return new SearchFailure("error_bad_request", query).serialize();
+      return new SearchFailure("error_bad_request", null).serialize();
     }
     if (hasHeaders == null) {
       return new SearchFailure("error_bad_request", query).serialize();
@@ -49,9 +42,9 @@ public class SearchCsv implements Route {
       System.out.println(nameIndex);
       if (nameIndex.equalsIgnoreCase("name")) {
         String name = request.queryParams("name");
-        // http://localhost:3232/SearchCSV?query= has headers with index name and town
+          //http://localhost:4040/searchCsv?query=Barrington&hasHeaders=yes&nameIndex=index&index=0
         try {
-          List<List<String>> searchResult = this.dataHandler.searchColName(query, name, headers);
+          List<List<String>> searchResult = this.censusData.searchColName(query, name);
           return new SearchSuccess(searchResult, query, hasHeaders, nameIndex, name, null)
               .serialize();
         } catch (Exception e) {
@@ -60,7 +53,7 @@ public class SearchCsv implements Route {
       } else if (nameIndex.equalsIgnoreCase("index")) {
         Integer index = Integer.parseInt(request.queryParams("index"));
         try {
-          List<List<String>> searchResult = this.dataHandler.searchColName(query, null, headers);
+          List<List<String>> searchResult = this.censusData.searchColIndex(query, index);
           return new SearchSuccess(searchResult, query, hasHeaders, nameIndex, null, index)
               .serialize();
 
@@ -69,9 +62,9 @@ public class SearchCsv implements Route {
         }
       }
     } else if (hasHeaders.equalsIgnoreCase("no")) {
-      // http://localhost:3232/SearchCSV?query= does not have headers
+      // http://localhost:3232/SearchCsv?query= does not have headers
       try {
-        List<List<String>> result = this.dataHandler.searchNoHeader(query, false);
+        List<List<String>> result = this.censusData.searchNoHeader(query);
         return new SearchSuccess(result, query, hasHeaders, null, null, null).serialize();
 
       } catch (Exception e) {

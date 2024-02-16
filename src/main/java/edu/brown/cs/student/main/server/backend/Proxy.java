@@ -1,18 +1,11 @@
 package edu.brown.cs.student.main.server.backend;
 
 import com.google.common.cache.*;
-import edu.brown.cs.student.main.server.CSV.DataHandler;
 
-import edu.brown.cs.student.main.server.backend.data.CensusBroadbandDatasource;
+import edu.brown.cs.student.main.server.backend.data.BroadBand;
 
 import java.util.Collection;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-
-import spark.Request;
-import spark.Response;
-import spark.Route;
 
 // need to decide when/how to remove stale (outdated or irrelevant)
 // entries from cache and allow developer to control how this is done
@@ -23,9 +16,9 @@ import spark.Route;
 // public class Proxy<Graph> extends Ticker{
 
 public class Proxy {
-   private final CensusBroadbandDatasource wrappedHandler;
+   private final BroadBand wrappedHandler;
    private final LoadingCache<String, Object> cache;
-    public  Proxy(CensusBroadbandDatasource wrappedHandler, String state, String county) {
+    public Proxy(BroadBand wrappedHandler, String state, String county) {
         this.wrappedHandler = wrappedHandler;
 
         RemovalListener<String, Object> removalListener = removalNotification -> {};
@@ -39,7 +32,8 @@ public class Proxy {
                         new CacheLoader<>() {
                             @Override
                             public Collection<String> load(String s) throws Exception {
-                                return wrappedHandler.getBroadbandPercentage(state, county);
+                                //return wrappedHandler.getBroadbandPercentage(state, county);
+                                return null;
                             }
                             //load(request, response)
                         }
