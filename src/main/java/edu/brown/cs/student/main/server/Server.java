@@ -6,8 +6,6 @@ import edu.brown.cs.student.main.server.CSV.SearchCsv;
 import edu.brown.cs.student.main.server.CSV.ViewCsv;
 import spark.Spark;
 
-import static spark.Spark.after;
-
 /**
  * Top-level class for this demo. Contains the main() method which starts Spark and runs the various
  * handlers (2).
@@ -18,24 +16,18 @@ import static spark.Spark.after;
  * all had the same shared state.
  */
 public class Server {
+  static final int port = 4040;
 
-  final static int port = 3232;
   public static void main(String[] args) {
+
     Spark.port(port);
 
-    CensusData dataHander = new CensusData("");
-
-    // Allows clients to make requests to server
-    after(
-        (request, response) -> {
-          response.header("Access-Control-Allow-Origin", "*");
-          response.header("Access-Control-Allow-Methods", "*");
-        });
+    CensusData censusData = new CensusData("");
 
     // Setting up the handler for the loading, searching, and viewing endpoints
-    Spark.get("/loadCsv", new LoadCsv(dataHander));
-    Spark.get("/searchCsv", new SearchCsv(dataHander));
-    Spark.get("/viewCsv", new ViewCsv(dataHander));
+    Spark.get("loadCsv", new LoadCsv(censusData));
+    Spark.get("searchCsv", new SearchCsv(censusData));
+    Spark.get("viewCsv", new ViewCsv(censusData));
 
     Spark.init();
     Spark.awaitInitialization();

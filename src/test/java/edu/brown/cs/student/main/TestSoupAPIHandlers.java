@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.squareup.moshi.Moshi;
 import edu.brown.cs.student.main.server.backend.census.CensusHandler;
-import edu.brown.cs.student.main.server.backend.Soup;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -95,11 +94,10 @@ public class TestSoupAPIHandlers {
    * @return the connection for the given URL, just after connecting
    * @throws IOException if the connection fails for some reason
    */
-  private static HttpURLConnection tryRequest(String apiCall,
-                                              String soupName) throws IOException {
+  private static HttpURLConnection tryRequest(String apiCall, String soupName) throws IOException {
     // Configure the connection (but don't actually send the request yet)
     URL requestURL =
-            new URL("http://localhost:" + Spark.port() + "/" + apiCall + "?soupName=" + soupName);
+        new URL("http://localhost:" + Spark.port() + "/" + apiCall + "?soupName=" + soupName);
     HttpURLConnection clientConnection = (HttpURLConnection) requestURL.openConnection();
 
     // The default method is "GET", which is what we're using here.

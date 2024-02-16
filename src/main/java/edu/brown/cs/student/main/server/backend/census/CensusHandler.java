@@ -1,7 +1,7 @@
 package edu.brown.cs.student.main.server.backend.census;
 
+import edu.brown.cs.student.main.server.CSV.CensusData;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -12,13 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import edu.brown.cs.student.main.server.CSV.CensusData;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-
-import static spark.Spark.connect;
 
 /**
  * This class is used to illustrate how to build and send a GET request then prints the response. It
@@ -72,17 +68,15 @@ public class CensusHandler implements Route {
   private String sendRequest(int participants)
       throws URISyntaxException, IOException, InterruptedException {
 
-    URL requestURL = new URL("https", "api.census.gov",
-            "/data/2010/dec/sf?get=NAME&for=state:*");
-    //HttpURLConnection clientConnection = connect(requestURL);
+    URL requestURL = new URL("https", "api.census.gov", "/data/2010/dec/sf?get=NAME&for=state:*");
+    // HttpURLConnection clientConnection = connect(requestURL);
     System.out.println("connected to client");
 
     HttpRequest buildBoredApiRequest =
-            HttpRequest.newBuilder()
-                    .uri(new URI("http://www.boredapi.com/api/activity?participants=" + participants))
-                    .GET()
-                    .build();
-
+        HttpRequest.newBuilder()
+            .uri(new URI("http://www.boredapi.com/api/activity?participants=" + participants))
+            .GET()
+            .build();
 
     // Send that API request then store the response in this variable. Note the generic type.
     HttpResponse<String> sentBoredApiResponse =
@@ -98,25 +92,25 @@ public class CensusHandler implements Route {
     return sentBoredApiResponse.body();
   }
 
-//  private loadCSV{
-//    //load csv file if one is located at specific path
-//    //requests must have filepath query parameter
-//    //response must include filepath field
-//    //share status of file loading with search and view
-//  }
-//
-//  private viewCSV{
-//    //sends back entire CSV file's conentnts as a json 2d array
-//  }
-//
-//  private searchCSV{
-//    //send back rows mathcing the given search criteria
-//    //requests muts allow all search paramters needed to implement CSV
-//  }
-//
-//  private broadband{
-//    //sends back broadband data from ACS
-//    //requests must have state & county query parameter
-//    //response must include correspondng fields for all paramters in request recieved
-//  }
+  //  private loadCSV{
+  //    //load csv file if one is located at specific path
+  //    //requests must have filepath query parameter
+  //    //response must include filepath field
+  //    //share status of file loading with search and view
+  //  }
+  //
+  //  private viewCSV{
+  //    //sends back entire CSV file's conentnts as a json 2d array
+  //  }
+  //
+  //  private searchCSV{
+  //    //send back rows mathcing the given search criteria
+  //    //requests muts allow all search paramters needed to implement CSV
+  //  }
+  //
+  //  private broadband{
+  //    //sends back broadband data from ACS
+  //    //requests must have state & county query parameter
+  //    //response must include correspondng fields for all paramters in request recieved
+  //  }
 }
