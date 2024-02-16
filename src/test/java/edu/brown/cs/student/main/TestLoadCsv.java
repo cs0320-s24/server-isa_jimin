@@ -12,13 +12,17 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestLoadCsv {
-
+    /**
+     * Tests for the LoadCsv class.
+     */
     MockCensusData mockData;
     @BeforeEach
     public void setup() {
         LoadCsv loadCsv = new LoadCsv(mockData);
     }
-
+    /**
+     * Test to ensure that a file was properly loaded.
+     */
     @Test
     public void testLoadCSVSuccessResponse(){
         LoadCsv.LoadCSVSuccessResponse success = new LoadCsv.LoadCSVSuccessResponse("success",
@@ -35,7 +39,9 @@ public class TestLoadCsv {
 
         assertEquals(expected1, sResponse);
     }
-
+    /**
+     * Test to ensure the correct failure response if a file is incorrectly loaded.
+     */
     @Test
     public void testLoadCSVFailureResponse(){
         LoadCsv.LoadCSVFailureResponse failure = new LoadCsv.LoadCSVFailureResponse("error");
