@@ -3,8 +3,9 @@ package edu.brown.cs.student.main.server.backend;
 import com.google.common.cache.*;
 
 import edu.brown.cs.student.main.server.backend.data.BroadBand;
+import edu.brown.cs.student.main.server.backend.data.BroadBandAccessPercent;
+import edu.brown.cs.student.main.server.backend.data.Location;
 
-import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
 // need to decide when/how to remove stale (outdated or irrelevant)
@@ -17,11 +18,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Proxy {
    private final BroadBand wrappedHandler;
-   private final LoadingCache<String, Object> cache;
+   private final LoadingCache<Location, BroadBandAccessPercent> cache;
     public Proxy(BroadBand wrappedHandler, String state, String county) {
         this.wrappedHandler = wrappedHandler;
-
-        RemovalListener<String, Object> removalListener = removalNotification -> {};
+        RemovalListener<Location, BroadBandAccessPercent> removalListener = removalNotification -> {};
 
         this.cache = CacheBuilder.newBuilder()
                 .maximumSize(10)
@@ -29,51 +29,10 @@ public class Proxy {
                 .recordStats()
                 .removalListener(removalListener)
                 .build(
-                        new CacheLoader<>() {
-                            @Override
-                            public Collection<String> load(String s) throws Exception {
-                                //return wrappedHandler.getBroadbandPercentage(state, county);
-                                return null;
+                        new CacheLoader<Location, BroadBandAccessPercent>() {
+                            public BroadBandAccessPercent load(Location location) throws Exception {
+                                return wrappedHandler.getBroadbandPercent(location);
                             }
-                            //load(request, response)
-                        }
-                );
-    }
+                        });
+    }}
 
-
-//    @Override
-//    public Object handle(Request request, Response response) throws Exception {
-//        return null;
-//    }
-//    @Override
-//    public Object handle(Request request, Response response) throws Exception {
-//        String cacheKey = generateCacheKey(request);
-//        return this.cache.get(cacheKey);
-//    }
-//
-//    private String generateCacheKey(Request request){
-//        //figure out how to do this
-//        return null;
-//    }
-//=======
-//  @Override
-//  public Object handle(Request request, Response response) throws Exception {
-//    String cacheKey = generateCacheKey(request);
-//    return this.cache.get(cacheKey);
-//  }
-//
-//  private String generateCacheKey(Request request) {
-//    // Start with the request path
-//    String path = request.pathInfo();
-//
-//    String queryParams =
-//        request.queryMap().toMap().entrySet().stream()
-//            .sorted(Map.Entry.comparingByKey()) // Ensure consistent order
-//            .map(entry -> entry.getKey() + "=" + String.join(",", entry.getValue()))
-//            .collect(Collectors.joining("&", "?", "")); // Concatenate all query params
-//
-//    // Combine path and queryParams to form the cache key
-//    return path + queryParams;
-//  }
-//>>>>>>> 5d71d3928c7518d6da17d913fcc86cd3e2b6c854
-}
