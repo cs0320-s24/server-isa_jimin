@@ -28,7 +28,7 @@ public class Proxy {
     public Proxy(CensusBroadbandDatasource wrappedHandler, String state, String county) {
         this.wrappedHandler = wrappedHandler;
 
-    RemovalListener<String, Object> removalListener = removalNotification -> {};
+        RemovalListener<String, Object> removalListener = removalNotification -> {};
 
         this.cache = CacheBuilder.newBuilder()
                 .maximumSize(10)
