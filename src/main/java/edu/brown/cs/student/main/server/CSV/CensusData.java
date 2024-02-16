@@ -13,8 +13,8 @@ public class CensusData {
   private BufferedReader fileReader;
 
   /**
-   * DataHandler constructor which takes in a filepath to be accessed by other classes that have an
-   * instance of DataHandler
+   * CensusData constructor which takes in a filepath to be accessed by other classes that have an
+   * instance of CensusData
    *
    * @param filePath filepath that the user inserts into the query
    */
