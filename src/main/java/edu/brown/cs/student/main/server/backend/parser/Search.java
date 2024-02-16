@@ -33,7 +33,7 @@ public class Search {
       throws FactoryFailureException, IOException {
     this.parser = inputParser;
     this.target = target;
-    this.parsedList = this.parser.parse();
+    //this.parsedList = this.parser.parse();
   }
 
   /**
@@ -46,15 +46,13 @@ public class Search {
     ArrayList<List<String>> toReturn = new ArrayList<>();
     HashSet<List<String>> checker = new HashSet<>();
 
-    boolean found = false;
-    for (int i = 0; i < this.parsedList.size(); i++) {
+      for (int i = 0; i < this.parsedList.size(); i++) {
       for (int j = 0; j < this.parsedList.get(i).size(); j++) {
 
         String current = this.parsedList.get(i).get(j);
 
         // if the target that is being searched for is found, print the row.
         if (this.target.equals(current)) {
-          found = true;
           if (!checker.contains(this.parsedList.get(i))) {
             toReturn.add(this.parsedList.get(i));
             checker.add(this.parsedList.get(i));
@@ -62,9 +60,6 @@ public class Search {
         }
       }
     }
-    //    if (!found) {
-    //      System.out.println("Target not found in file");
-    //    }
     return toReturn;
   }
 
@@ -77,34 +72,27 @@ public class Search {
   public ArrayList<List<String>> colSearch(String colAsStr, Integer colIndex) {
     // crates needed variables
     ArrayList<List<String>> toReturn = new ArrayList<>();
-    boolean found = false;
     int col = -1;
 
     // convert inputted col string to an int and then loop through rows
     if (colIndex == null) {
-      col = Integer.valueOf(colAsStr);
+      col = Integer.parseInt(colAsStr);
     } else if (colAsStr == null) {
       col = colIndex;
     }
 
     // cant search cols that don't exist
-    if (this.parsedList.size() == 0 || col > this.parsedList.get(0).size() - 1 || col < 0) {
+    if (this.parsedList.isEmpty() || col > this.parsedList.get(0).size() - 1 || col < 0) {
       throw new IndexOutOfBoundsException();
     }
 
     // begin search
     for (int i = 0; i < this.parsedList.size(); i++) {
-
       // checks specific column for index
       if (this.target.equals(this.parsedList.get(i).get(col))) {
-        found = true;
         toReturn.add(this.parsedList.get(i));
       }
     }
-    // case where target isn't found in the column
-    //    if (!found) {
-    //      System.out.println("Target not found in this col");
-    //    }
     return toReturn;
   }
 
@@ -118,7 +106,6 @@ public class Search {
    */
   public ArrayList<List<String>> headerSearch(String headerName) throws IOException {
     // creates needed variables
-    boolean found = false;
     ArrayList<List<String>> toReturn = new ArrayList<>();
     List<String> header = this.parser.getHeaderList();
     // returns index and if not in it returns -1
@@ -132,14 +119,10 @@ public class Search {
     for (int i = 0; i < this.parsedList.size(); i++) {
       // checks only specific colum the header corresponds to
       if (this.target.equals(this.parsedList.get(i).get(index))) {
-        found = true;
         toReturn.add(this.parsedList.get(i));
       }
     }
-    // case where target isn't found in the column
-    //    if (!found) {
-    //      System.out.println("Target not found in column with this name");
-    //    }
+
     return toReturn;
   }
 }

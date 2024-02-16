@@ -16,7 +16,7 @@ public class CSVParser<T> {
   public CSVParser(Reader reader, CreatorFromRow<T> c) throws IOException {
     this.reader = new BufferedReader(reader);
     this.c = c;
-  } // take in Reader instead of FileReader
+  }
   /** This method parses given data and returns a list of objects of a given type. */
   public List<T> parse() throws IOException, FactoryFailureException {
     List<T> returnList = new ArrayList<>();
@@ -29,12 +29,7 @@ public class CSVParser<T> {
       returnList.add(object);
       line = this.reader.readLine();
     }
-    System.out.println(returnList);
     return returnList;
-  }
-
-  public Reader getReader() {
-    return this.reader;
   }
 
   public List<String> getHeaderList() {

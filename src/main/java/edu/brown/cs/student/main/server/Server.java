@@ -32,6 +32,7 @@ public class Server {
     Spark.get("viewCsv", new ViewCsv(censusData));
     Spark.get("searchCsv", new SearchCsv(censusData));
     Spark.get("broadBand", new BroadBandHandler(new BroadBand()));
+    //http://localhost:4040/broadBand?state=idaho&county=adacounty
 
     Spark.init();
     Spark.awaitInitialization();

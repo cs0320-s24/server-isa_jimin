@@ -7,7 +7,7 @@ public class Create implements CreatorFromRow<CreateObject> {
   public Create() {}
   /** This method makes CreateObjects. */
   @Override
-  public CreateObject create(List<String> row) throws FactoryFailureException {
+  public CreateObject create(List<String> row) {
     return new CreateObject();
   }
 }

@@ -17,10 +17,6 @@ public record BroadBandAccessPercent(Double percentage) {
       throw new IllegalArgumentException("Invalid percentage");
     }
   }
-
-  public double getPercentage(){
-    return percentage;
-  }
 }
 
 
