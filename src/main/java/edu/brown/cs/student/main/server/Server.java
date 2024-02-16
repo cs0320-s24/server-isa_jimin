@@ -26,8 +26,8 @@ public class Server {
 
     // Setting up the handler for the loading, searching, and viewing endpoints
     Spark.get("loadCsv", new LoadCsv(censusData));
-    Spark.get("searchCsv", new SearchCsv(censusData));
     Spark.get("viewCsv", new ViewCsv(censusData));
+    Spark.get("searchCsv", new SearchCsv(censusData));
 
     Spark.init();
     Spark.awaitInitialization();

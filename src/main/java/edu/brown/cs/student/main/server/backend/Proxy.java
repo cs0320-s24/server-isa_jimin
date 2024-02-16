@@ -25,7 +25,7 @@ import spark.Route;
 public class Proxy {
    private final CensusBroadbandDatasource wrappedHandler;
    private final LoadingCache<String, Object> cache;
-    public  Proxy(CensusBroadbandDatasource wrappedHandler, String state, String county) {
+    public Proxy(CensusBroadbandDatasource wrappedHandler, String state, String county) {
         this.wrappedHandler = wrappedHandler;
 
     RemovalListener<String, Object> removalListener = removalNotification -> {};
@@ -39,7 +39,8 @@ public class Proxy {
                         new CacheLoader<>() {
                             @Override
                             public Collection<String> load(String s) throws Exception {
-                                return wrappedHandler.getBroadbandPercentage(state, county);
+                                //return wrappedHandler.getBroadbandPercentage(state, county);
+                                return null;
                             }
                             //load(request, response)
                         }

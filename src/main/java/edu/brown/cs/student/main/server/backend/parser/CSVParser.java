@@ -22,14 +22,7 @@ public class CSVParser<T> {
   public List<T> parse() throws IOException, FactoryFailureException {
     List<T> returnList = new ArrayList<>();
     String line = this.reader.readLine();
-
-    if (this.headers) {
-      this.headerList = Arrays.asList(regexSplitCSVRow.split(line));
-      this.reader.readLine();
-    }
-    //      if(this.headers){
-    //          this.reader.readLine();
-    //      }
+    System.out.println("CSV Parser parse call");
 
     while (line != null) {
       List<String> row = Arrays.asList(regexSplitCSVRow.split(line));

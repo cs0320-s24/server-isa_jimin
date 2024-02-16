@@ -4,16 +4,16 @@ package edu.brown.cs.student.main.server.backend.Exceptions;
  * original cause as a field, which helps with debugging, but also allows the caller to handle the
  * issue uniformly if they wish, without looking inside.
  */
-public class DatasourceException extends Exception {
+public class DataSourceException extends Exception {
   // The root cause of this datasource problem
   private final Throwable cause;
 
-  public DatasourceException(String message) {
+  public DataSourceException(String message) {
     super(message); // Exception message
     this.cause = null;
   }
 
-  public DatasourceException(String message, Throwable cause) {
+  public DataSourceException(String message, Throwable cause) {
     super(message); // Exception message
     this.cause = cause;
   }
