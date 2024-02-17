@@ -1,0 +1,83 @@
+#Project name: Server
+
+#Team members and contributions:
+Isabella Delionado (ideliona):
+-CSV parsing and searching
+-Caching broadband data (Proxy)
+-Mocking and testing classes
+-README
+
+
+Jimin Ryu (jlryu):
+-broadband
+-CSV loading and viewing
+-Census data
+-Server/handling
+-Data source exception
+
+
+#Link to repository: https://github.com/cs0320-s24/server-isa_jimin.git
+
+#Design choices:
+
+##Overview:
+We were able to adapt much of the code and structure from the GearUp for our program.
+Our program is divided into multiple directories that deals with different aspects of our project. The data
+directory holds the BroadBand class, BroadBandAccessPercent record, BroadbandDatasource interface,
+BroadBandHandler class, Proxy class and Location record. The exceptions directory holds the DataSource
+Exception and FactoryFailureException. The parser directory holds the CreatorFromRow interface, CSVParser class,
+and Search class. The test directory holds the MockCensusData class and TestLoadCsv class. Outside the directories,
+we have the Server class.
+
+##Data directory:
+The BroadBandDatasource class serves as a data source for retrieving the percentage of households with broadband access
+for a specific location. It obtains data from the U.S. Census by first retrieving state and county codes, and then
+fetching and returning the percentage statistics. In order to standardize the BroadBandDatasource class, it implements
+the BroadbandDatasource interface which includes the getBroadbandPercent method which takes in a Location or the String
+state and county, depending on the implementation; the BroadBandDatasource class takes in the state and county in
+order to retrieve the data from the API. The BroadBandAccessPercent record checks if the percentage is a valid value
+or will throw an exception.The BroadbandHandler class handles incoming HTTP requests for the percentage of households
+with broadband access in a specific state and county.The Location directory gets and returns the state and county names.
+
+The Proxy class removed outdated entries from the BroadBand using the caching technique from the Google
+Guava cache library. Having the proxy class as an intermediary caching between the server’s handler and the ACS
+datasource allows the developer stakeholder to easily optimize or modify caching to their intended use. We decided
+to use timed eviction so that entries would expire after the specified duration has passed since the entry was created.
+This allows the most relevant data to be searched for.
+
+##Exceptions directory:
+The DataSource Exception communicates that an error occurred with a requested datasource.
+It wraps the original cause as a field, which helps with debugging, but also allows the caller to handle
+the issue uniformly if they wish, without looking inside. The FactoryFailureException communicates that an error
+occurred when creating an object from a row while parsing a CSV.
+
+##Parser directory:
+The CreatorFromRow interface includes a create function that converts rows into a type of object specified by
+the user. The CSVParser class includes a parse function that turns given data, such as a file or string, into a list
+of objects. The type of these objects is determined by the create function from CreatorFromRow, which the CSVParser
+takes in as an argument. The CSVParser also takes in a BufferedReader in order to be able to accept an object that
+extends the Reader class. The Search class searches the parsed CSV by a keyword, column index, or headers.
+
+
+##CSV directory:
+The CensusData class takes in a file path, set by the user, to be accessed by other classes that have an instance
+of CensusData. The LoadCsv class takes in CensusData and serializes a file in order to perform parsing and searching.
+This class also provides responses in the case that a file was loaded successfully or unsuccessfully. The SearchCsv
+class takes in CensusData and serializes a file to check if the given file path is valid, if there is a valid query,
+if there are headers, and runs the appropriate search methods given these user inputs. The ViewCsv class takes in
+CensusData and serializes a file in order to be able to view a file.
+
+##Testing directory:
+Please refer to the Test section.
+
+#Errors/Bugs:
+The searchCsv call is not able to properly search for the given column index and name, but we do get an error
+response from the server, meaning that we have some error protection.
+
+#Test:
+In order to test our program, we created the MockCensusData class in order to access and run tests on the
+CensusData without providing access or accidentally changing or modifying the data. We also created a TestLoadCsv
+class to test the success and failure responses of our load class, ensure that files were properly loaded and
+that the program could handle potential problems. Tests can be run by running the entire test class. Ideally, we
+would have expanded our test suite to include classes to test ViewCsv, SearchCsv, and BroadBandHandler.
+

@@ -51,7 +51,7 @@ public class CensusData {
       FileReader fileReader1 = new FileReader(filepath);
       fileReader = new BufferedReader(fileReader1);
       parser = new CSVParser(fileReader, new Create());
-      System.out.println("File Parsed");
+      System.out.println("CensusData: File Parsed");
       return parser.parse();
     } catch (FactoryFailureException e) {
       System.err.println("Error Parsing CSV");
@@ -62,13 +62,15 @@ public class CensusData {
   public List<List<String>> searchColName(String query, String colName) throws IOException,
    FactoryFailureException {
           Search search = new Search(this.parser, query);
-          return search.colSearch(colName, null);
+          System.out.println("CensusData this.parser: " + this.parser);
+    return search.colSearch(colName, null);
       }
 
       public List<List<String>> searchColIndex(String query, Integer index) throws IOException,
-   FactoryFailureException {
+    FactoryFailureException {
           Search search = new Search(this.parser, query);
-          return search.colSearch(null, index);
+        System.out.println("CensusData searchCol Index: "+ search.colSearch(null, index));
+        return search.colSearch(null, index);
       }
 
   public List<List<String>> searchNoHeader(String query)
@@ -76,9 +78,6 @@ public class CensusData {
     Search search = new Search(this.parser, query);
     return search.basicSearch();
   }
-
-
-
   /**
    * This is the Create class which we chose to nest in DataHandler so data could utilize a create
    * method without having to implement CreatorFromRow since it is not a create object.
@@ -90,11 +89,9 @@ public class CensusData {
      *
      * @param row takes in a row
      * @return row of strings
-     * @throws FactoryFailureException throws an exception if there is an error creating an object
-     *     from a row
      */
     @Override
-    public List<String> create(List<String> row) throws FactoryFailureException {
+    public List<String> create(List<String> row) {
       return row;
     }
   }

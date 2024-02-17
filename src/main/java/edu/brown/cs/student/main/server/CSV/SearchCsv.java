@@ -19,8 +19,18 @@ public class SearchCsv implements Route {
     this.censusData = censusData;
   }
 
+  /**
+   * Handle method, checks if the given filepath is valid, if there is a valid query, if there
+   * are headers, and runs the appropriate search methods given these user inputs
+   * @param request request from the user
+   * @param response from the server
+   * @return Search success or failure result
+   */
   @Override
-  public Object handle(Request request, Response response) throws Exception {
+  public Object handle(Request request, Response response) {
+    System.out.println("HELLO");
+
+
     if (this.censusData.getFilePath() == null || this.censusData.getFilePath().isEmpty()) {
       System.err.println("No filepath is given");
       return new ViewCsv.ViewFailure("failure").serialize();
@@ -36,15 +46,17 @@ public class SearchCsv implements Route {
     if (hasHeaders == null) {
       return new SearchFailure("error_bad_request", query).serialize();
     }
+
     System.out.println(hasHeaders);
     if (hasHeaders.equalsIgnoreCase("yes")) {
       String nameIndex = request.queryParams("nameIndex");
-      System.out.println(nameIndex);
+      System.out.println("searchCsv name Index: " + nameIndex);
       if (nameIndex.equalsIgnoreCase("name")) {
         String name = request.queryParams("name");
-          //http://localhost:4040/searchCsv?query=Barrington&hasHeaders=yes&nameIndex=index&index=0
+          //http://localhost:4040/SearchCsv?query=Barrington&hasHeaders=yes&nameIndex=name&name=City/Town
         try {
           List<List<String>> searchResult = this.censusData.searchColName(query, name);
+          System.out.println("Running searchColName");
           return new SearchSuccess(searchResult, query, hasHeaders, nameIndex, name, null)
               .serialize();
         } catch (Exception e) {
@@ -53,16 +65,18 @@ public class SearchCsv implements Route {
       } else if (nameIndex.equalsIgnoreCase("index")) {
         Integer index = Integer.parseInt(request.queryParams("index"));
         try {
+          System.out.println("Running searchColIndex");
           List<List<String>> searchResult = this.censusData.searchColIndex(query, index);
           return new SearchSuccess(searchResult, query, hasHeaders, nameIndex, null, index)
               .serialize();
 
         } catch (Exception e) {
+          System.out.println(e.getMessage());
           return new SearchFailure("error_bad_request", query).serialize();
         }
       }
     } else if (hasHeaders.equalsIgnoreCase("no")) {
-      // http://localhost:3232/SearchCsv?query= does not have headers
+      // http://localhost:3232/SearchCsv?query=Pawtucket&hasHeaders=no
       try {
         List<List<String>> result = this.censusData.searchNoHeader(query);
         return new SearchSuccess(result, query, hasHeaders, null, null, null).serialize();
@@ -111,6 +125,7 @@ public class SearchCsv implements Route {
         responseMap.put("type", "error");
         responseMap.put("error_type", "error_bad_json");
         responseMap.put("details", e.getMessage());
+        System.out.println(responseMap);
         return adapter.toJson(responseMap);
       }
     }
@@ -119,8 +134,7 @@ public class SearchCsv implements Route {
   /**
    * Handles the failure response when a user inputs an incorrect input in the query
    *
-   * @param result
-   * @param query
+   * @param query given from the user
    */
   public record SearchFailure(String result, String query) {
 

@@ -23,10 +23,10 @@ public class BroadBandHandler implements Route {
     private final BroadBand datasource;
 
     /**
-     * This is the constructor for the BroadbandHandler class. It takes in a BroadBandDatasource
-     * Datasource.
+     * This is the constructor for the BroadbandHandler class. It takes in a BroadBand
+     * datasource.
      *
-     * @param datasource BroadbandDatasource object that can contact the Census API
+     * @param datasource Broadband object that can contact the Census API
      */
     public BroadBandHandler(BroadBand datasource) {
         this.datasource = datasource;
@@ -63,7 +63,9 @@ public class BroadBandHandler implements Route {
         // Generate the reply
         try {
             // Ask the Datasource to get the percent.
+            System.out.println("BB Handler: " + location);
             BroadBandAccessPercent data = this.datasource.getBroadbandPercent(location.getState(), location.county());
+
 
             // Build response if this is a success. Error will be thrown and caught otherwise.
             responseMap.put("type", "success");

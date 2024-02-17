@@ -61,7 +61,8 @@ public class BroadBand implements BroadbandDatasource {
         } catch (NumberFormatException e) {
             throw new DataSourceException("Invalid state code for state: " + stateName);
         }
-        int countyCode = Integer.parseInt(this.resolveCountyCode(stateCode, stateName, countyName));
+        String countyCode = this.resolveCountyCode(stateCode, stateName, countyName);
+        System.out.println("County code: " + countyCode);
 
         try {
             // Build and connect to URL, feeding in above codes
@@ -119,7 +120,7 @@ public class BroadBand implements BroadbandDatasource {
             // Turn List of Lists into HashSet, skipping header row
             HashMap<String, String> stateCodeMap = new HashMap<>();
             for (List<String> stateCode : stateCodeList.subList(1, stateCodeList.size())) {
-                stateCodeMap.put(stateCode.get(0), stateCode.get(1));
+                stateCodeMap.put(stateCode.get(0).toLowerCase(), stateCode.get(1).toLowerCase());
             }
             return stateCodeMap;
 
@@ -163,7 +164,7 @@ public class BroadBand implements BroadbandDatasource {
                                 + stateName);
             for (List<String> countyData : countyList) {
                 String query = countyName + ", " + stateName;
-                if (countyData.get(0).equals(query)) {
+                if (countyData.get(0).toLowerCase().equals(query)) {
                     return countyData.get(2);
                 }
             }

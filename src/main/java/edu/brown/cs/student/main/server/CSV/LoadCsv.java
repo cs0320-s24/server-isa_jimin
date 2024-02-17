@@ -22,10 +22,22 @@ public class LoadCsv implements Route {
   private CensusData censusData;
   private String filePath;
 
+  /**
+   * LoadCsv constructor, takes in a CensusData object
+   * @param censusData returns the censusData
+   */
   public LoadCsv(CensusData censusData) {
     this.censusData = censusData;
   }
 
+  /**
+   * Handles the file loading, produces a success response if the filereader is able to find the given file
+   * via the file path
+   * @param request from the user
+   * @param response from the server
+   * @return either a success or failure response
+   * @throws Exception if a file is invalid or cannot be read
+   */
   @Override
   public Object handle(Request request, Response response) throws Exception {
     System.out.println("file loading");
@@ -48,6 +60,11 @@ public class LoadCsv implements Route {
     }
   }
 
+  /**
+   * Success response given by the handler if the given file is successfully loaded
+   * @param response from the server
+   * @param filepath given from the user
+   */
   public record LoadCSVSuccessResponse(String response, String filepath) {
     /**
      * @return this response, serialized as Json
@@ -72,6 +89,10 @@ public class LoadCsv implements Route {
     }
   }
 
+  /**
+   * Failure response if the csv cannot be loaded
+   * @param response_type type of error from the invalid file
+   */
   public record LoadCSVFailureResponse(String response_type) {
     public LoadCSVFailureResponse() {
       this("error");
